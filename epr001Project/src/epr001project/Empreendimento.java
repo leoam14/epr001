@@ -6,6 +6,10 @@
 
 package epr001project;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -20,12 +24,30 @@ public class Empreendimento extends javax.swing.JPanel {
      */
     public Empreendimento() {
         initComponents();
-        DadosModel dataTable = new DadosModel();
-        JTable tabela = new JTable(dataTable);
-        JScrollPane scroll = new JScrollPane();
-        scroll.add(tabela);
-        scroll.setSize(this.getSize());
-        this.add(scroll);
+//        DadosModel dataTable = new DadosModel();
+//        JTable tabela = new JTable(dataTable);
+//        JScrollPane scroll = new JScrollPane();
+//        scroll.add(tabela);
+//        scroll.setSize(500,500);
+//        this.add(scroll);
+        
+       final JFrame frame = new JFrame("JTable Demo");
+ 
+        JTable table = new JTable(new DadosModel());
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+ 
+        JLabel lblHeading = new JLabel("Stock Quotes");
+        lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
+ 
+        this.setLayout(new BorderLayout());
+ 
+        this.add(lblHeading,BorderLayout.PAGE_START);
+        this.add(scrollPane,BorderLayout.CENTER);
+ 
+        
+        this.setSize(550, 200);
+        this.setVisible(true);
     }
 
     /**

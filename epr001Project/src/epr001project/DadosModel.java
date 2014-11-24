@@ -15,8 +15,11 @@ import javax.swing.table.AbstractTableModel;
  * @author leoam14
  */
 public class DadosModel extends AbstractTableModel{
-    public int meses = 1;
+    public int meses = 4;
+    public int rows = 19;
+    
     public List<Double> receitaBruta = new ArrayList<Double>();
+    public List<String> nomesColunas = new ArrayList<String>();
     public List<Double> impostoProp = new ArrayList<Double>();
     public List<Double> receitaLíquida = new ArrayList<Double>();
     public List<Double> custoVarProd = new ArrayList<Double>();
@@ -37,7 +40,27 @@ public class DadosModel extends AbstractTableModel{
     public List<Double> liberaFinanciamento = new ArrayList<Double>();
     public List<Double> valorResidual = new ArrayList<Double>();
     public List<Double> fluxoCaixa = new ArrayList<Double>();
-
+    
+    String[] columns = {};
+    String[] rowsNames = {"Receita Bruta","Imposto Prop.","Receita Líquida","Custo Var. Prod.",
+                          "Custo Fix. Prod.","Lucro Bruto","Desp Gerais Var.","Desp Gerais Fix.",
+                          "Depreciação","Desp. Finan.","Lucro Opera.","Resíduo de Venda","Lucro Antes IR",
+                          "IR//Cont. Social","Venda de Ativo","Amortecimento","Investimento","Lib. Finan.",
+                          "Valor Residual","Fluxo de Caixa"};
+    
+    Object[][] data = {
+    {"Kathy", "Smith",
+     "Snowboarding", new Integer(5), new Boolean(false)},
+    {"John", "Doe",
+     "Rowing", new Integer(3), new Boolean(true)},
+    {"Sue", "Black",
+     "Knitting", new Integer(2), new Boolean(false)},
+    {"Jane", "White",
+     "Speed reading", new Integer(20), new Boolean(true)},
+    {"Joe", "Brown",
+     "Pool", new Integer(10), new Boolean(false)}
+    };
+    
     public DadosModel() {
     inicializa();
     }
@@ -53,7 +76,9 @@ public class DadosModel extends AbstractTableModel{
     
     public void inicializa(){
         Double d = new Double(0);
+        nomesColunas.add("");
         for(int i=0; i <= meses; i++){
+            nomesColunas.add(i+"");
             receitaBruta.add(d);
             impostoProp.add(d);
             receitaLíquida.add(d);
@@ -76,8 +101,38 @@ public class DadosModel extends AbstractTableModel{
             valorResidual.add(d);
             fluxoCaixa.add(d);
         }
+       UpdateData();
+       columns = nomesColunas.toArray(new String[0]);
     }
-
+    
+    public void UpdateData(){
+        data = new Object[][]{
+            {receitaBruta.toArray(new Double[0])},
+            {impostoProp.toArray(new Double[0])},
+            {receitaLíquida.toArray(new Double[0])},
+            {custoVarProd.toArray(new Double[0])},
+            {custoFixProd.toArray(new Double[0])},
+            {lucroBruto.toArray(new Double[0])},
+            {despGerVar.toArray(new Double[0])},
+            {despGerFix.toArray(new Double[0])},
+            {depreciacao.toArray(new Double[0])},
+            {despFinanceiras.toArray(new Double[0])},
+            {lucroOperacional.toArray(new Double[0])},
+            {resVendAtivo.toArray(new Double[0])},
+            {lucroAntesIR.toArray(new Double[0])},
+            {irEContribSocial.toArray(new Double[0])},
+            {lucroAposIR.toArray(new Double[0])},
+            {vendaDeAtivo.toArray(new Double[0])},
+            {amort.toArray(new Double[0])},
+            {investimento.toArray()},
+            {liberaFinanciamento.toArray(new Double[0])},
+            {valorResidual.toArray(new Double[0])},
+            {fluxoCaixa.toArray(new Double[0])}
+        };
+        
+        
+    }
+    
     public List<Double> getReceitaBruta() {
         return receitaBruta;
     }
@@ -248,17 +303,23 @@ public class DadosModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return 21; //To change body of generated methods, choose Tools | Templates.
+        return data.length; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getColumnCount() {
-        return getMeses(); //To change body of generated methods, choose Tools | Templates.
+        return columns.length; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return new Double(0);
+        if(columnIndex>=1)
+            return ((Object[])(data[rowIndex][0]))[columnIndex-1];
+        else
+            if(rowsNames.length>rowIndex)
+                return rowsNames[rowIndex];
+            else
+                return "";
     }
     
     
