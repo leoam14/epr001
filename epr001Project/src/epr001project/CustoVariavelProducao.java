@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package epr001project;
 
 import java.awt.BorderLayout;
@@ -15,8 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 /**
  *
@@ -29,28 +21,26 @@ public class CustoVariavelProducao extends javax.swing.JPanel {
      */
     JFrame j;
     CustoVariavelProducao pt = this;
-    
-    public void salvarAlteracoes(){
-            Data.getData().custoVariavelProducao.atualizarVariaveis();
-            Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
-            }
-    
+
+    public void salvarAlteracoes() {
+        Data.getData().custoVariavelProducao.atualizarVariaveis();
+        Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
+    }
+
     public CustoVariavelProducao(JFrame j) {
         initComponents();
         this.j = j;
         final JFrame frame = new JFrame("JTable Demo");
-        
+
         JTable table = new JTable(Data.getData().custoVariavelProducao);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
-        
+
         JLabel lblHeading = new JLabel("Custo Variável de Produção");
-        lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
+        lblHeading.setFont(new Font("Arial", Font.TRUETYPE_FONT, 24));
         JButton next = new JButton("Next");
         next.addMouseListener(new MouseListener() {
 
-            
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 salvarAlteracoes();
@@ -61,36 +51,35 @@ public class CustoVariavelProducao extends javax.swing.JPanel {
                 fAdvanced.add(cfp);
                 fAdvanced.setLocationRelativeTo(pt);
                 fAdvanced.setVisible(true);
-                j.setVisible(false);    
+                j.setVisible(false);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
         this.setLayout(new BorderLayout());
- 
-        this.add(lblHeading,BorderLayout.PAGE_START);
-        this.add(next,BorderLayout.SOUTH);
-        this.add(scrollPane,BorderLayout.CENTER);
- 
-        
+
+        this.add(lblHeading, BorderLayout.PAGE_START);
+        this.add(next, BorderLayout.SOUTH);
+        this.add(scrollPane, BorderLayout.CENTER);
+
         this.setSize(550, 200);
         this.setVisible(true);
     }
