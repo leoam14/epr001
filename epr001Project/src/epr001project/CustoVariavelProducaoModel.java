@@ -62,6 +62,19 @@ public class CustoVariavelProducaoModel extends AbstractTableModel{
       return true;
     }
     
+    public void limparDados(){
+        materiaPrima = new ArrayList<Double>();
+        nomesColunas = new ArrayList<String>();
+        energiaEletrica = new ArrayList<Double>();
+        combustivel = new ArrayList<Double>();
+        frete = new ArrayList<Double>();
+        agua = new ArrayList<Double>();
+        embalagens = new ArrayList<Double>();
+        outros = new ArrayList<Double>();
+        eventuais = new ArrayList<Double>();
+        total = new ArrayList<Double>();
+    }
+    
     public void setValueAt(Object aValue, int rowIndex, int columnIndex)
     {
         ((Object[])(data[rowIndex][0]))[columnIndex-1] = Double.parseDouble((String)aValue);
@@ -77,7 +90,13 @@ public class CustoVariavelProducaoModel extends AbstractTableModel{
         return (true);
     }
     
+    @Override
+    public String getColumnName(int column) {
+        return columns[column]; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public void inicializar(){
+        limparDados();
         Double d = new Double(0);
         nomesColunas.add("");
         for(int i=0; i <= anos; i++){

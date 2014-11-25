@@ -86,6 +86,7 @@ public class Iniciar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Data.getData().limpaDados();
         Data.getData().setAnos(Integer.parseInt(jTextField1.getText()));
         if(modo == 1){
         JFrame fAdvanced = new JFrame();

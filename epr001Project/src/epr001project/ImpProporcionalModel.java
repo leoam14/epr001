@@ -36,6 +36,22 @@ public class ImpProporcionalModel extends AbstractTableModel{
         return anos;
     }
 
+    public void limparDados(){
+     elem1 = new ArrayList<Double>();
+     nomesColunas = new ArrayList<String>();
+     elem2 = new ArrayList<Double>();
+     elem3 = new ArrayList<Double>();
+     elem4 = new ArrayList<Double>();
+     elem5 = new ArrayList<Double>();
+     
+     total = new ArrayList<Double>();
+    }
+    
+    @Override
+    public String getColumnName(int column) {
+        return columns[column]; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public void setAnos(int ano) {
         this.anos = ano;
         inicializar();
@@ -73,6 +89,7 @@ public class ImpProporcionalModel extends AbstractTableModel{
     }
     
     public void inicializar(){
+        limparDados();
         Double d = new Double(0);
         nomesColunas.add("");
         for(int i=0; i <= anos; i++){

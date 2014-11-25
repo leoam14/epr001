@@ -13,6 +13,7 @@ public class Data {
     DespGeralFixaModel despGeralFixa = new DespGeralFixaModel();
     ImpProporcionalModel impProporcional = new ImpProporcionalModel();
     DepreciacaoModel depreciacao = new DepreciacaoModel();
+    OutrosDadosModel outrosDados = new OutrosDadosModel();
     int anos = 1;
     
     private Data(){};
@@ -26,6 +27,18 @@ public class Data {
         }
     }
     
+    public void limpaDados(){
+        data=null;
+        outrosDados = new OutrosDadosModel();
+        dadosModel = new DadosModel();
+        custoVariavelProducao = new CustoVariavelProducaoModel();
+        custoFixoProducao = new CustoFixoProducaoModel();
+        despGeralVar = new DespGeralVarModel();
+        despGeralFixa = new DespGeralFixaModel();
+        impProporcional = new ImpProporcionalModel();
+        depreciacao = new DepreciacaoModel();
+    }
+    
     public void setAnos(int anos){
         this.anos = anos;
         dadosModel.setAnos(anos);
@@ -35,6 +48,7 @@ public class Data {
         despGeralFixa.setAnos(anos);
         despGeralVar.setAnos(anos);
         impProporcional.setAnos(anos);
+        outrosDados.setAnos(anos);
     }
     
     public int getAnos(){

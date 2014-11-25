@@ -1,9 +1,13 @@
 package epr001project;
 
+import Report.GeneratorReport;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,11 +40,12 @@ public class Empreendimento extends javax.swing.JPanel {
 //        scroll.setSize(500,500);
 //        this.add(scroll);
         
-        final JFrame frame = new JFrame("JTable Demo");
+        final JFrame frame = new JFrame("Tabela do Empreendimento");
         
         JTable table = new JTable(Data.getData().dadosModel);
         JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
+        scrollPane.add(table.getTableHeader());
+        table.setFillsViewportHeight(false);
  
         Data.getData().dadosModel.addTableModelListener(
         new TableModelListener() 
@@ -61,7 +66,22 @@ public class Empreendimento extends javax.swing.JPanel {
                 if(table.getCellEditor()!=null)
                 table.getCellEditor().stopCellEditing();
                 Data.getData().dadosModel.atualizarVariaveis();
-                Data.getData().dadosModel.fireTableDataChanged();
+                Double taxaSelic = new Double(0);
+                Double vpl = new Double(0);
+                Double tir = new Double(0);
+                
+                try {
+                    DadosReceitaFederal taxa = new DadosReceitaFederal();
+                    taxaSelic = taxa.getTaxaCelic();
+                    taxaSelic = Math.pow((1+taxaSelic/100),12)-1;
+                    taxaSelic*=100;
+                    vpl = Epr001Finance.VPL(Data.getData().dadosModel.getFluxoCaixa(), taxaSelic);
+                    tir = Epr001Finance.TIR(Data.getData().dadosModel.getFluxoCaixa(), taxaSelic);
+                    GeneratorReport rep = new GeneratorReport(vpl,tir,taxaSelic,Data.getData().dadosModel.getFluxoCaixa());
+                    rep.getReport();
+                } catch (IOException ex) {
+                    Logger.getLogger(Empreendimento.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
@@ -86,8 +106,8 @@ public class Empreendimento extends javax.swing.JPanel {
         });
         this.setLayout(new BorderLayout());
  
-        this.add(lblHeading,BorderLayout.PAGE_START);
-        this.add(calcular,BorderLayout.PAGE_START);
+        this.add(lblHeading,BorderLayout.NORTH);
+        this.add(calcular,BorderLayout.SOUTH);
         this.add(scrollPane,BorderLayout.CENTER);
  
         

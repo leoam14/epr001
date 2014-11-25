@@ -10,23 +10,28 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author leoam14
  */
-public class DespGeralFixaModel extends AbstractTableModel{
+public class OutrosDadosModel extends AbstractTableModel{
     public int anos = 1;
-    public int rows = 9;
+    public int rows = 6;
     
     public List<Double> elem1 = new ArrayList<Double>();
     public List<String> nomesColunas = new ArrayList<String>();
     public List<Double> elem2 = new ArrayList<Double>();
     public List<Double> elem3 = new ArrayList<Double>();
+    public List<Double> elem4 = new ArrayList<Double>();
+    public List<Double> elem5 = new ArrayList<Double>();
+    public List<Double> elem6 = new ArrayList<Double>();
+    public List<Double> elem7 = new ArrayList<Double>();
+    public List<Double> elem8 = new ArrayList<Double>();
     public List<Double> total = new ArrayList<Double>();
     
     
     String[] columns = {};
-    String[] rowsNames = {"Despesas Administrativas","Outros","Eventuais"};
+    String[] rowsNames = {"Receita Bruta","Despesas Financeiras","Resultado de Venda de Ativo","Amortecimento","Investimento","Liberação Financeira","IR/Contrib. Social","Valor Residual"};
     
     Object[][] data = {};
     
-    public DespGeralFixaModel() {
+    public OutrosDadosModel() {
     inicializar();
     
     }
@@ -40,12 +45,11 @@ public class DespGeralFixaModel extends AbstractTableModel{
      nomesColunas = new ArrayList<String>();
      elem2 = new ArrayList<Double>();
      elem3 = new ArrayList<Double>();
-     total = new ArrayList<Double>();
-    }
-    
-    public void setAnos(int ano) {
-        this.anos = ano;
-        inicializar();
+     elem4 = new ArrayList<Double>();
+     elem5 = new ArrayList<Double>();
+     elem6 = new ArrayList<Double>();
+     elem7 = new ArrayList<Double>();
+     elem8 = new ArrayList<Double>();
     }
     
     @Override
@@ -53,13 +57,21 @@ public class DespGeralFixaModel extends AbstractTableModel{
         return columns[column]; //To change body of generated methods, choose Tools | Templates.
     }
     
+    public void setAnos(int ano) {
+        this.anos = ano;
+        inicializar();
+    }
+    
     public Boolean atualizarVariaveis(){
         try{
             elem1 = Arrays.<Double>asList((Double[])data[0][0]);
             elem2 = Arrays.<Double>asList((Double[])data[1][0]);
             elem3 = Arrays.<Double>asList((Double[])data[2][0]);
-            
-            calculaValores();
+            elem4 = Arrays.<Double>asList((Double[])data[3][0]);
+            elem5 = Arrays.<Double>asList((Double[])data[4][0]);
+            elem6 = Arrays.<Double>asList((Double[])data[5][0]);
+            elem7 = Arrays.<Double>asList((Double[])data[6][0]);
+            elem8 = Arrays.<Double>asList((Double[])data[7][0]);
             updateData();
         }catch(Exception e){
         return false;
@@ -76,7 +88,7 @@ public class DespGeralFixaModel extends AbstractTableModel{
         
         for(int i=0;i<total.size();i++)
         {
-        total.set(i, elem1.get(i)+elem2.get(i)+elem3.get(i));
+        total.set(i, elem1.get(i)+elem2.get(i)+elem3.get(i)+elem4.get(i)+elem5.get(i)+elem6.get(i)+elem7.get(i)+elem8.get(i));
         }
         updateData();
         return (true);
@@ -91,9 +103,11 @@ public class DespGeralFixaModel extends AbstractTableModel{
             elem1.add(d);
             elem2.add(d);
             elem3.add(d);
-            
-           
-            total.add(d);
+            elem4.add(d);
+            elem5.add(d);
+            elem6.add(d);
+            elem7.add(d);
+            elem8.add(d);
             
         }
        updateData();
@@ -104,7 +118,13 @@ public class DespGeralFixaModel extends AbstractTableModel{
         data = new Object[][]{
             {elem1.toArray(new Double[0])},
             {elem2.toArray(new Double[0])},
-            {elem3.toArray(new Double[0])}
+            {elem3.toArray(new Double[0])},
+            {elem4.toArray(new Double[0])},
+            {elem5.toArray(new Double[0])},
+            {elem6.toArray(new Double[0])},
+            {elem7.toArray(new Double[0])},
+            {elem8.toArray(new Double[0])}
+            
         };   
     }
     
@@ -138,6 +158,22 @@ public class DespGeralFixaModel extends AbstractTableModel{
 
     public void setReceitaLiquida(List<Double> receitaLiquida) {
         this.elem3 = receitaLiquida;
+    }
+
+    public List<Double> getCustoVarProd() {
+        return elem4;
+    }
+
+    public void setCustoVarProd(List<Double> custoVarProd) {
+        this.elem4 = custoVarProd;
+    }
+
+    public List<Double> getCustoFixProd() {
+        return elem5;
+    }
+
+    public void setCustoFixProd(List<Double> custoFixProd) {
+        this.elem5 = custoFixProd;
     }
 
     @Override

@@ -29,7 +29,6 @@ public class DadosModel extends AbstractTableModel{
     public List<Double> lucroAntesIR = new ArrayList<Double>();
     public List<Double> irEContribSocial = new ArrayList<Double>();
     public List<Double> lucroAposIR = new ArrayList<Double>();
-    public List<Double> vendaDeAtivo = new ArrayList<Double>();
     public List<Double> amort = new ArrayList<Double>();
     public List<Double> investimento = new ArrayList<Double>();
     public List<Double> liberaFinanciamento = new ArrayList<Double>();
@@ -38,9 +37,9 @@ public class DadosModel extends AbstractTableModel{
     
     String[] columns = {};
     String[] rowsNames = {"Receita Bruta","Imposto Prop.","Receita Líquida","Custo Var. Prod.",
-                          "Custo Fix. Prod.","Lucro Bruto","Desp Gerais Var.","Desp Gerais Fix.",
-                          "Depreciação","Desp. Finan.","Lucro Opera.","Resíduo de Venda","Lucro Antes IR",
-                          "IR//Cont. Social","Lucro Após IR","Depreciação","Venda de Ativo","Amortecimento","Investimento","Lib. Finan.",
+                          "Custo Fixo Prod.","Lucro Bruto","Desp Gerais Var.","Desp Gerais Fixas",
+                          "Depreciação","Despesas Finananceiras","Lucro Operacional","Resultado Venda de Ativo","Lucro Antes IR",
+                          "IR/Contr. Social","Lucro Após IR","Depreciação","Resultado Venda de Ativo","Amortecimento","Investimento","Liberação Finan.",
                           "Valor Residual","Fluxo de Caixa"};
     
     Object[][] data = {};
@@ -56,6 +55,30 @@ public class DadosModel extends AbstractTableModel{
     public void setAnos(int ano) {
         this.anos = ano;
         inicializar();
+    }
+    
+    public void limparDados(){
+    receitaBruta = new ArrayList<Double>();
+    nomesColunas = new ArrayList<String>();
+    impostoProp = new ArrayList<Double>();
+    receitaLiquida = new ArrayList<Double>();
+    custoVarProd = new ArrayList<Double>();
+    custoFixProd = new ArrayList<Double>();
+    lucroBruto = new ArrayList<Double>();
+    despGerVar = new ArrayList<Double>();
+    despGerFix = new ArrayList<Double>();
+    depreciacao = new ArrayList<Double>();
+    despFinanceiras = new ArrayList<Double>();
+    lucroOperacional = new ArrayList<Double>();
+    resVendAtivo = new ArrayList<Double>();
+    lucroAntesIR = new ArrayList<Double>();
+    irEContribSocial = new ArrayList<Double>();
+    lucroAposIR = new ArrayList<Double>();
+    amort = new ArrayList<Double>();
+    investimento = new ArrayList<Double>();
+    liberaFinanciamento = new ArrayList<Double>();
+    valorResidual = new ArrayList<Double>();
+    fluxoCaixa = new ArrayList<Double>();
     }
     
     public Boolean atualizarVariaveis(){
@@ -75,7 +98,6 @@ public class DadosModel extends AbstractTableModel{
             lucroAntesIR = Arrays.<Double>asList((Double[])data[12][0]);
             irEContribSocial = Arrays.<Double>asList((Double[])data[13][0]);
             lucroAposIR = Arrays.<Double>asList((Double[])data[14][0]);
-            vendaDeAtivo = Arrays.<Double>asList((Double[])data[16][0]);
             amort = Arrays.<Double>asList((Double[])data[17][0]);
             investimento = Arrays.<Double>asList((Double[])data[18][0]);
             liberaFinanciamento = Arrays.<Double>asList((Double[])data[19][0]);
@@ -126,7 +148,7 @@ public class DadosModel extends AbstractTableModel{
     public Boolean calculaLucroAntesIR(){
         if(lucroAntesIR.size()>0){
             for(int i=0; i< lucroAntesIR.size(); i++){
-                lucroAntesIR.set(i,lucroOperacional.get(i)+vendaDeAtivo.get(i));
+                lucroAntesIR.set(i,lucroOperacional.get(i)+resVendAtivo.get(i));
             }
         }
         return true;
@@ -155,6 +177,7 @@ public class DadosModel extends AbstractTableModel{
     }
     
     public void inicializar(){
+        limparDados();
         Double d = new Double(0);
         nomesColunas.add("");
         for(int i=0; i <= anos; i++){
@@ -174,7 +197,6 @@ public class DadosModel extends AbstractTableModel{
             lucroAntesIR.add(d);
             irEContribSocial.add(d);
             lucroAposIR.add(d);
-            vendaDeAtivo.add(d);
             amort.add(d);
             investimento.add(d);
             liberaFinanciamento.add(d);
@@ -203,7 +225,7 @@ public class DadosModel extends AbstractTableModel{
             {irEContribSocial.toArray(new Double[0])},
             {lucroAposIR.toArray(new Double[0])},
             {depreciacao.toArray(new Double[0])},
-            {vendaDeAtivo.toArray(new Double[0])},
+            {resVendAtivo.toArray(new Double[0])},
             {amort.toArray(new Double[0])},
             {investimento.toArray(new Double[0])},
             {liberaFinanciamento.toArray(new Double[0])},
@@ -340,14 +362,6 @@ public class DadosModel extends AbstractTableModel{
         this.lucroAposIR = lucroAposIR;
     }
 
-    public List<Double> getVendaDeAtivo() {
-        return vendaDeAtivo;
-    }
-
-    public void setVendaDeAtivo(List<Double> vendaDeAtivo) {
-        this.vendaDeAtivo = vendaDeAtivo;
-    }
-
     public List<Double> getAmort() {
         return amort;
     }
@@ -398,6 +412,13 @@ public class DadosModel extends AbstractTableModel{
         return anos+2; //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getColumnName(int column) {
+        return columns[column]; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if(columnIndex>=1)

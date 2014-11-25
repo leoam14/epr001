@@ -39,6 +39,19 @@ public class DepreciacaoModel extends AbstractTableModel{
         inicializar();
     }
     
+    @Override
+    public String getColumnName(int column) {
+        return columns[column]; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void limparDados(){
+     elem1 = new ArrayList<Double>();
+     nomesColunas = new ArrayList<String>();
+     elem2 = new ArrayList<Double>();
+     elem3 = new ArrayList<Double>();
+     total = new ArrayList<Double>();
+    }
+    
     public Boolean atualizarVariaveis(){
         try{
             elem1 = Arrays.<Double>asList((Double[])data[0][0]);
@@ -69,6 +82,7 @@ public class DepreciacaoModel extends AbstractTableModel{
     }
     
     public void inicializar(){
+        limparDados();
         Double d = new Double(0);
         nomesColunas.add("");
         for(int i=0; i <= anos; i++){

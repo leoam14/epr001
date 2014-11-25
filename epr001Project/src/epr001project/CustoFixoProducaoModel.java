@@ -69,8 +69,19 @@ public class CustoFixoProducaoModel extends AbstractTableModel {
         updateData();
         return (true);
     }
+    
+    public void limparDados(){
+    elem1 = new ArrayList<Double>();
+    nomesColunas = new ArrayList<String>();
+    elem2 = new ArrayList<Double>();
+    elem3 = new ArrayList<Double>();
+    elem4 = new ArrayList<Double>();
+    elem5 = new ArrayList<Double>();
+    total = new ArrayList<Double>();
+    }
 
     public void inicializar() {
+        limparDados();
         Double d = new Double(0);
         nomesColunas.add("");
         for (int i = 0; i <= anos; i++) {
@@ -124,6 +135,11 @@ public class CustoFixoProducaoModel extends AbstractTableModel {
 
     public List<Double> getReceitaLiquida() {
         return elem3;
+    }
+    
+    @Override
+    public String getColumnName(int column) {
+        return columns[column]; //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setReceitaLiquida(List<Double> receitaLiquida) {
