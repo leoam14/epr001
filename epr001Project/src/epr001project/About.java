@@ -42,7 +42,7 @@ public class About extends javax.swing.JPanel {
 
         jLabel4.setText("Alison Algusto - 18688");
 
-        jLabel5.setText("Douglas Teixeira - ?????");
+        jLabel5.setText("Douglas Teixeira - 18700");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
