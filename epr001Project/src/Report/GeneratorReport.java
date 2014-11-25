@@ -3,6 +3,7 @@ package Report;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,9 +19,9 @@ public class GeneratorReport {
     private final double VPL;
     private final double TIR;
     private final double TMA;
-    List <Double> fluxoCaixa;
+    List<Double> fluxoCaixa;
 
-    public GeneratorReport(double VPL, double TIR, double TMA, List <Double> fluxoCaixa) {
+    public GeneratorReport(double VPL, double TIR, double TMA, List<Double> fluxoCaixa) {
         this.fluxoCaixa = fluxoCaixa;
         this.TIR = TIR;
         this.VPL = VPL;
@@ -50,32 +51,42 @@ public class GeneratorReport {
         }
 
         pdf.openDocument();
-        
+
+        pdf.addTitle("RELATÓRIO DE ANÁLISE FINANCEIRA\n\n");
+
+        pdf.addText("Com base nos dados da quadro fluxo financeiro, temos o seguinte fluxo de caixa representado pelo gráfico de barras abaixo:");
+
         pdf.addChart(barChart.getChart());
-        
-        pdf.addText ("VPL = "+VPL);
-        pdf.addText ("TIR = "+TIR+"%");
-        pdf.addText ("TMA = "+TMA+"%");
-        if (isViable()){
-            pdf.addText ("\nTIR >= TMA e VPL >= 0, logo:");
-            pdf.addText("O investimento é viável");
-        }else{
-            pdf.addText ("TIR < TMA e VPL <0, logo:");
-            pdf.addText("O investimento não é viável");
+
+        pdf.addText("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        String s1 = "O valor presente líquido do investimento (VPL) calculado é de " + VPL;
+        String s2 = "A taxa interna de retorno do investimento (TIR) calculada é de " + TIR + "%";
+        String s3 = "A taxa mínima de atratividade (TMA) requerida pela empresa é de " + TMA + "%";
+        pdf.addList(s1, s2, s3);
+        if (isViable()) {
+            pdf.addText("\nLogo, sabendo que a TIR é maior ou igual à TMA e o VPL é maior ou igual a zero, chegamos a conclusão que:");
+            pdf.addTitle("\nO investimento é viável");
+        } else {
+            pdf.addText("\nLogo, sabendo que a TIR é menor que à TMA e o VPL é menor que zero, chegamos a conclusão que:");
+            pdf.addTitle("\nO investimento não é viável");
         }
-        
+
+        pdf.addText("\n\n\n\n\n\n");
         pdf.addDate(new Date());
 
         pdf.closeDocument();
+
+        pdf.openPDF();
     }
-//    public static void main(String[] args) {
-//        List<Double> l = new ArrayList<>();
-//        l.add(50.00);
-//        l.add(50.00);
-//        l.add(10.00);
-//        l.add(50.00);
-//        l.add(50.00);
-//        GeneratorReport rep = new GeneratorReport(0.2, 13.0, 12.0, l);
-//        rep.getReport();
-//    }
+
+    public static void main(String[] args) {
+        List<Double> l = new ArrayList<>();
+        l.add(50.00);
+        l.add(50.00);
+        l.add(10.00);
+        l.add(50.00);
+        l.add(50.00);
+        GeneratorReport rep = new GeneratorReport(0.2, 13.0, 12.0, l);
+        rep.getReport();
+    }
 }
