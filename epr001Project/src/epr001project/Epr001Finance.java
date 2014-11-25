@@ -44,22 +44,29 @@ public class Epr001Finance {
         Double aux = 0.00;
         Double auxVPL = 0.00;
         Double tir = 0.00;
+        int i = 0;
         if(verificaVetor(d))
         {
         if (tirVPL >0){
             while(tirVPL >0){
+             i++;
              aux = tma;
              tma++;
              auxVPL = tirVPL;
              tirVPL = VPL(d,tma);
-                System.out.println("TIRVPL: "+tirVPL+" TMA: "+tma);
+             System.out.println("TIRVPL: "+tirVPL+" TMA: "+tma);
+             if(i>100000)
+                 return -1.0;
             }
         }else{
              while(tirVPL <0){
+             i++;
              aux = tma;
              tma--;
              auxVPL = tirVPL;
              tirVPL = VPL(d,tma);
+             if(i>100000)
+                 return -1.0;
             }
             
         }

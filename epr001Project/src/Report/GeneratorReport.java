@@ -63,6 +63,7 @@ public class GeneratorReport {
         
         pdf.addText("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         String verificaTIR = TIR!=null? " calculada é de "+df.format(TIR)+ "%": " não pode ser calculada.";
+        verificaTIR = TIR>0? verificaTIR: " é negativa.";
         String s1 = "O valor presente líquido do investimento (VPL) calculado é de " + df.format(VPL);
         String s2 = "A taxa interna de retorno do investimento (TIR)" + verificaTIR;
         String s3 = "A taxa mínima de atratividade (TMA) requerida pela empresa é de " + df.format(TMA) + "%";

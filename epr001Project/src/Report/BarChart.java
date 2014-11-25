@@ -66,7 +66,7 @@ public class BarChart extends ApplicationFrame {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         for (int i=0; i<numPeriodos; i++){
-            dataset.addValue(fluxoCaixa.get(i), series1,(i+1));
+            dataset.addValue(fluxoCaixa.get(i), series1,(i));
         }
 
         return dataset;
