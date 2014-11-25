@@ -2,11 +2,9 @@ package Report;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;

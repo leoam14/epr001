@@ -55,8 +55,8 @@ public class GeneratorReport {
         pdf.addChart(barChart.getChart());
         
         pdf.addText ("VPL = "+VPL);
-        pdf.addText ("TIR = "+TIR);
-        pdf.addText ("TMA = "+TMA);
+        pdf.addText ("TIR = "+TIR+"%");
+        pdf.addText ("TMA = "+TMA+"%");
         if (isViable()){
             pdf.addText ("\nTIR >= TMA e VPL >= 0, logo:");
             pdf.addText("O investimento é viável");
