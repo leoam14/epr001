@@ -7,6 +7,8 @@
 package epr001project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -15,13 +17,13 @@ import javax.swing.table.AbstractTableModel;
  * @author leoam14
  */
 public class DadosModel extends AbstractTableModel{
-    public int meses = 4;
+    public int anos = 1;
     public int rows = 19;
     
     public List<Double> receitaBruta = new ArrayList<Double>();
     public List<String> nomesColunas = new ArrayList<String>();
     public List<Double> impostoProp = new ArrayList<Double>();
-    public List<Double> receitaLíquida = new ArrayList<Double>();
+    public List<Double> receitaLiquida = new ArrayList<Double>();
     public List<Double> custoVarProd = new ArrayList<Double>();
     public List<Double> custoFixProd = new ArrayList<Double>();
     public List<Double> lucroBruto = new ArrayList<Double>();
@@ -45,43 +47,126 @@ public class DadosModel extends AbstractTableModel{
     String[] rowsNames = {"Receita Bruta","Imposto Prop.","Receita Líquida","Custo Var. Prod.",
                           "Custo Fix. Prod.","Lucro Bruto","Desp Gerais Var.","Desp Gerais Fix.",
                           "Depreciação","Desp. Finan.","Lucro Opera.","Resíduo de Venda","Lucro Antes IR",
-                          "IR//Cont. Social","Venda de Ativo","Amortecimento","Investimento","Lib. Finan.",
+                          "IR//Cont. Social","Lucro Após IR","Depreciação","Venda de Ativo","Amortecimento","Investimento","Lib. Finan.",
                           "Valor Residual","Fluxo de Caixa"};
     
-    Object[][] data = {
-    {"Kathy", "Smith",
-     "Snowboarding", new Integer(5), new Boolean(false)},
-    {"John", "Doe",
-     "Rowing", new Integer(3), new Boolean(true)},
-    {"Sue", "Black",
-     "Knitting", new Integer(2), new Boolean(false)},
-    {"Jane", "White",
-     "Speed reading", new Integer(20), new Boolean(true)},
-    {"Joe", "Brown",
-     "Pool", new Integer(10), new Boolean(false)}
-    };
+    Object[][] data = {};
     
     public DadosModel() {
-    inicializa();
+    inicializar();
     }
     
-    public int getMeses() {
-        return meses;
+    public int getAnos() {
+        return anos;
     }
 
-    public void setMeses(int meses) {
-        this.meses = meses;
-        inicializa();
+    public void setAnos(int ano) {
+        this.anos = ano;
+        inicializar();
     }
     
-    public void inicializa(){
+    public Boolean atualizarVariaveis(){
+        try{
+            receitaBruta = Arrays.<Double>asList((Double[])data[0][0]);
+            impostoProp = Arrays.<Double>asList((Double[])data[1][0]);
+            receitaLiquida = Arrays.<Double>asList((Double[])data[2][0]);
+            custoVarProd = Arrays.<Double>asList((Double[])data[3][0]);
+            custoFixProd = Arrays.<Double>asList((Double[])data[4][0]);
+            lucroBruto = Arrays.<Double>asList((Double[])data[5][0]);
+            despGerVar = Arrays.<Double>asList((Double[])data[6][0]);
+            despGerFix = Arrays.<Double>asList((Double[])data[7][0]);
+            depreciacao = Arrays.<Double>asList((Double[])data[8][0]);
+            despFinanceiras = Arrays.<Double>asList((Double[])data[9][0]);
+            lucroOperacional = Arrays.<Double>asList((Double[])data[10][0]);
+            resVendAtivo = Arrays.<Double>asList((Double[])data[11][0]);
+            lucroAntesIR = Arrays.<Double>asList((Double[])data[12][0]);
+            irEContribSocial = Arrays.<Double>asList((Double[])data[13][0]);
+            lucroAposIR = Arrays.<Double>asList((Double[])data[14][0]);
+            vendaDeAtivo = Arrays.<Double>asList((Double[])data[16][0]);
+            amort = Arrays.<Double>asList((Double[])data[17][0]);
+            investimento = Arrays.<Double>asList((Double[])data[18][0]);
+            liberaFinanciamento = Arrays.<Double>asList((Double[])data[19][0]);
+            valorResidual = Arrays.<Double>asList((Double[])data[20][0]);
+            fluxoCaixa = Arrays.<Double>asList((Double[])data[21][0]);
+            calculaValores();
+            updateData();
+        }catch(Exception e){
+        return false;
+        }
+      return true;
+    }
+    
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex)
+    {
+        ((Object[])(data[rowIndex][0]))[columnIndex-1] = Double.parseDouble((String)aValue);
+    }
+    
+    public Boolean calculaReceitaLiquida(){
+        if(receitaLiquida.size()>0){
+            for(int i=0; i< receitaLiquida.size(); i++){
+                receitaLiquida.set(i,receitaBruta.get(i)-impostoProp.get(i));
+            }
+        }
+        return true;
+    }
+    
+    public Boolean calculaLucroBruto(){
+        if(lucroBruto.size()>0){
+            for(int i=0; i< lucroBruto.size(); i++){
+                lucroBruto.set(i,receitaLiquida.get(i)-custoVarProd.get(i)-custoFixProd.get(i));
+            }
+        }
+        return true;
+    }
+    
+    public Boolean calculaLucroOperacional(){
+        if(lucroOperacional.size()>0){
+            for(int i=0; i< lucroOperacional.size(); i++){
+                lucroOperacional.set(i,lucroBruto.get(i)-despGerVar.get(i)-despGerFix.get(i)-depreciacao.get(i)-despFinanceiras.get(i));
+            }
+        }
+        return true;
+    }
+    
+    public Boolean calculaLucroAntesIR(){
+        if(lucroAntesIR.size()>0){
+            for(int i=0; i< lucroAntesIR.size(); i++){
+                lucroAntesIR.set(i,lucroOperacional.get(i)+vendaDeAtivo.get(i));
+            }
+        }
+        return true;
+    }
+    
+    public Boolean calculaLucroAposIR(){
+        if(lucroAposIR.size()>0){
+            for(int i=0; i< lucroAposIR.size(); i++){
+                lucroAposIR.set(i,lucroAntesIR.get(i)-irEContribSocial.get(i));
+            }
+        }
+        return true;
+    }
+    
+    public Boolean calculaFluxoDeCaixa(){
+        if(fluxoCaixa.size()>0){
+            for(int i=0; i< fluxoCaixa.size(); i++){
+                fluxoCaixa.set(i,lucroAposIR.get(i)+depreciacao.get(i)-resVendAtivo.get(i)-amort.get(i)-investimento.get(i)+liberaFinanciamento.get(i)+valorResidual.get(i));
+            }
+        }
+        return true;
+    }
+    
+    public Boolean calculaValores(){
+        return (calculaReceitaLiquida()&&calculaLucroBruto()&&calculaLucroOperacional()&&calculaLucroAntesIR()&&calculaLucroAposIR()&&calculaFluxoDeCaixa());
+    }
+    
+    public void inicializar(){
         Double d = new Double(0);
         nomesColunas.add("");
-        for(int i=0; i <= meses; i++){
+        for(int i=0; i <= anos; i++){
             nomesColunas.add(i+"");
             receitaBruta.add(d);
             impostoProp.add(d);
-            receitaLíquida.add(d);
+            receitaLiquida.add(d);
             custoVarProd.add(d);
             custoFixProd.add(d);
             lucroBruto.add(d);
@@ -101,15 +186,15 @@ public class DadosModel extends AbstractTableModel{
             valorResidual.add(d);
             fluxoCaixa.add(d);
         }
-       UpdateData();
+       updateData();
        columns = nomesColunas.toArray(new String[0]);
     }
     
-    public void UpdateData(){
+    public void updateData(){
         data = new Object[][]{
             {receitaBruta.toArray(new Double[0])},
             {impostoProp.toArray(new Double[0])},
-            {receitaLíquida.toArray(new Double[0])},
+            {receitaLiquida.toArray(new Double[0])},
             {custoVarProd.toArray(new Double[0])},
             {custoFixProd.toArray(new Double[0])},
             {lucroBruto.toArray(new Double[0])},
@@ -122,15 +207,22 @@ public class DadosModel extends AbstractTableModel{
             {lucroAntesIR.toArray(new Double[0])},
             {irEContribSocial.toArray(new Double[0])},
             {lucroAposIR.toArray(new Double[0])},
+            {depreciacao.toArray(new Double[0])},
             {vendaDeAtivo.toArray(new Double[0])},
             {amort.toArray(new Double[0])},
-            {investimento.toArray()},
+            {investimento.toArray(new Double[0])},
             {liberaFinanciamento.toArray(new Double[0])},
             {valorResidual.toArray(new Double[0])},
             {fluxoCaixa.toArray(new Double[0])}
-        };
-        
-        
+        };   
+    }
+    
+    public boolean isCellEditable(int rowIndex,
+                     int columnIndex){
+    if(columnIndex != 0)
+        return true;
+    else
+        return false;
     }
     
     public List<Double> getReceitaBruta() {
@@ -149,12 +241,12 @@ public class DadosModel extends AbstractTableModel{
         this.impostoProp = impostoProp;
     }
 
-    public List<Double> getReceitaLíquida() {
-        return receitaLíquida;
+    public List<Double> getReceitaLiquida() {
+        return receitaLiquida;
     }
 
-    public void setReceitaLíquida(List<Double> receitaLíquida) {
-        this.receitaLíquida = receitaLíquida;
+    public void setReceitaLiquida(List<Double> receitaLiquida) {
+        this.receitaLiquida = receitaLiquida;
     }
 
     public List<Double> getCustoVarProd() {
@@ -308,7 +400,7 @@ public class DadosModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return columns.length; //To change body of generated methods, choose Tools | Templates.
+        return anos+2; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

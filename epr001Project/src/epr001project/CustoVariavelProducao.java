@@ -6,12 +6,8 @@
 
 package epr001project;
 
-import com.sun.prism.j2d.J2DPipeline;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
@@ -19,40 +15,37 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 /**
  *
  * @author leoam14
  */
-public class Empreendimento extends javax.swing.JPanel {
+public class CustoVariavelProducao extends javax.swing.JPanel {
 
     /**
-     * Creates new form Empreendimento
+     * Creates new form CustoVariavelProducao
      */
-    public Empreendimento() {
+    public CustoVariavelProducao() {
         initComponents();
-//        DadosModel dataTable = new DadosModel();
-//        JTable tabela = new JTable(dataTable);
-//        JScrollPane scroll = new JScrollPane();
-//        scroll.add(tabela);
-//        scroll.setSize(500,500);
-//        this.add(scroll);
         
         final JFrame frame = new JFrame("JTable Demo");
         
-        JTable table = new JTable(Data.getData().dadosModel);
+        JTable table = new JTable(Data.getData().custoVariavelProducao);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
- 
-        JLabel lblHeading = new JLabel("Empreendimento");
+        
+        JLabel lblHeading = new JLabel("Custo Variável de Produção");
         lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
-        JButton calcular = new JButton("Calcular");
-        calcular.addMouseListener(new MouseListener() {
+        JButton next = new JButton("Next");
+        next.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Data.getData().dadosModel.atualizarVariaveis();
+                Data.getData().custoVariavelProducao.atualizarVariaveis();
+                Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
+                //JFrame
             }
 
             @Override
@@ -78,14 +71,14 @@ public class Empreendimento extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
  
         this.add(lblHeading,BorderLayout.PAGE_START);
-        this.add(calcular,BorderLayout.PAGE_START);
+        this.add(next,BorderLayout.SOUTH);
         this.add(scrollPane,BorderLayout.CENTER);
  
         
         this.setSize(550, 200);
         this.setVisible(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,13 +92,14 @@ public class Empreendimento extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1304, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
