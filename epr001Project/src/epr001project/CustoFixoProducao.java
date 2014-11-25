@@ -25,6 +25,7 @@ public class CustoFixoProducao extends javax.swing.JPanel {
     public void salvarAlteracoes(){
             Data.getData().custoFixoProducao.atualizarVariaveis();
             Data.getData().dadosModel.setCustoFixProd(Data.getData().custoFixoProducao.total);
+            Data.getData().dadosModel.updateData();
             }
     
     public CustoFixoProducao(JFrame j) {
@@ -43,6 +44,8 @@ public class CustoFixoProducao extends javax.swing.JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 salvarAlteracoes();
                 JFrame fAdvanced = new JFrame();
                 DespGeralVar cfp = new DespGeralVar(fAdvanced);

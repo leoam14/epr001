@@ -31,6 +31,7 @@ public class Depreciacao extends javax.swing.JPanel {
      public void salvarAlteracoes(){
             Data.getData().depreciacao.atualizarVariaveis();
             Data.getData().dadosModel.setDepreciacao(Data.getData().depreciacao.total);
+            Data.getData().dadosModel.updateData();
             }
     
     public Depreciacao(JFrame j) {
@@ -49,6 +50,8 @@ public class Depreciacao extends javax.swing.JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 salvarAlteracoes();
                 JFrame fAdvanced = new JFrame();
                 Empreendimento cfp = new Empreendimento(fAdvanced);

@@ -26,6 +26,7 @@ public class DespGeralFixa extends javax.swing.JPanel {
     public void salvarAlteracoes(){
             Data.getData().despGeralFixa.atualizarVariaveis();
             Data.getData().dadosModel.setDespGerFix(Data.getData().despGeralFixa.total);
+            Data.getData().dadosModel.updateData();
             }
     
     public DespGeralFixa(JFrame j) {
@@ -44,6 +45,8 @@ public class DespGeralFixa extends javax.swing.JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 salvarAlteracoes();
                 JFrame fAdvanced = new JFrame();
                 ImpProporcional cfp = new ImpProporcional(fAdvanced);

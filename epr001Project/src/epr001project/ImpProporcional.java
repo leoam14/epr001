@@ -26,6 +26,7 @@ public class ImpProporcional extends javax.swing.JPanel {
      public void salvarAlteracoes(){
             Data.getData().impProporcional.atualizarVariaveis();
             Data.getData().dadosModel.setImpostoProp(Data.getData().impProporcional.total);
+            Data.getData().dadosModel.updateData();
             }
      
     public ImpProporcional(JFrame j) {
@@ -44,6 +45,8 @@ public class ImpProporcional extends javax.swing.JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 salvarAlteracoes();
                 JFrame fAdvanced = new JFrame();
                 Depreciacao cfp = new Depreciacao(fAdvanced);

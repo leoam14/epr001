@@ -25,6 +25,7 @@ public class DespGeralVar extends javax.swing.JPanel {
     public void salvarAlteracoes(){
             Data.getData().despGeralVar.atualizarVariaveis();
             Data.getData().dadosModel.setDespGerVar(Data.getData().despGeralVar.total);
+            Data.getData().dadosModel.updateData();
             }
     
     public DespGeralVar(JFrame j) {
@@ -43,6 +44,8 @@ public class DespGeralVar extends javax.swing.JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 salvarAlteracoes();
                 JFrame fAdvanced = new JFrame();
                 DespGeralFixa cfp = new DespGeralFixa(fAdvanced);

@@ -22,10 +22,13 @@ public class CustoVariavelProducao extends javax.swing.JPanel {
     JFrame j;
     CustoVariavelProducao pt = this;
 
-    public void salvarAlteracoes() {
-        Data.getData().custoVariavelProducao.atualizarVariaveis();
-        Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
-    }
+    
+    public void salvarAlteracoes(){
+            Data.getData().custoVariavelProducao.atualizarVariaveis();
+            Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
+            Data.getData().dadosModel.updateData();
+            }
+    
 
     public CustoVariavelProducao(JFrame j) {
         initComponents();
@@ -43,6 +46,8 @@ public class CustoVariavelProducao extends javax.swing.JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 salvarAlteracoes();
                 JFrame fAdvanced = new JFrame();
                 CustoFixoProducao cfp = new CustoFixoProducao(fAdvanced);

@@ -92,6 +92,8 @@ public class DadosModel extends AbstractTableModel{
     public void setValueAt(Object aValue, int rowIndex, int columnIndex)
     {
         ((Object[])(data[rowIndex][0]))[columnIndex-1] = Double.parseDouble((String)aValue);
+         atualizarVariaveis();
+         fireTableDataChanged();
     }
     
     public Boolean calculaReceitaLiquida(){

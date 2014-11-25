@@ -29,6 +29,12 @@ public class Data {
     public void setAnos(int anos){
         this.anos = anos;
         dadosModel.setAnos(anos);
+        custoFixoProducao.setAnos(anos);
+        custoVariavelProducao.setAnos(anos);
+        depreciacao.setAnos(anos);
+        despGeralFixa.setAnos(anos);
+        despGeralVar.setAnos(anos);
+        impProporcional.setAnos(anos);
     }
     
     public int getAnos(){

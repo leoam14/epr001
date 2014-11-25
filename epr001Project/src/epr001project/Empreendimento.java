@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
+
 
 /**
  *
@@ -22,6 +26,8 @@ public class Empreendimento extends javax.swing.JPanel {
     JFrame j;
     public Empreendimento(JFrame j) {
         initComponents();
+        Data.getData().dadosModel.calculaValores();
+        Data.getData().dadosModel.updateData();
         this.j = j;
 //        DadosModel dataTable = new DadosModel();
 //        JTable tabela = new JTable(dataTable);
@@ -36,6 +42,15 @@ public class Empreendimento extends javax.swing.JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
  
+        Data.getData().dadosModel.addTableModelListener(
+        new TableModelListener() 
+        {
+            public void tableChanged(TableModelEvent evt) 
+            {
+                Data.getData().dadosModel.atualizarVariaveis();
+            }
+        });
+        
         JLabel lblHeading = new JLabel("Empreendimento");
         lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
         JButton calcular = new JButton("Calcular");
@@ -43,7 +58,10 @@ public class Empreendimento extends javax.swing.JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(table.getCellEditor()!=null)
+                table.getCellEditor().stopCellEditing();
                 Data.getData().dadosModel.atualizarVariaveis();
+                Data.getData().dadosModel.fireTableDataChanged();
             }
 
             @Override
