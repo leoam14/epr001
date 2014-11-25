@@ -69,15 +69,14 @@ public class GeneratorReport {
 
         pdf.closeDocument();
     }
-    
-    public static void main(String[] args) {
-        List<Double> l = new ArrayList<>();
-        l.add(50.00);
-        l.add(50.00);
-        l.add(10.00);
-        l.add(50.00);
-        l.add(50.00);
-        GeneratorReport rep = new GeneratorReport(0.2, 13.0, 12.0, l);
-        rep.getReport();
-    }
+//    public static void main(String[] args) {
+//        List<Double> l = new ArrayList<>();
+//        l.add(50.00);
+//        l.add(50.00);
+//        l.add(10.00);
+//        l.add(50.00);
+//        l.add(50.00);
+//        GeneratorReport rep = new GeneratorReport(0.2, 13.0, 12.0, l);
+//        rep.getReport();
+//    }
 }

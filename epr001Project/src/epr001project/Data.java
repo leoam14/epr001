@@ -14,6 +14,11 @@ public class Data {
     private static Data data=null;
     DadosModel dadosModel = new DadosModel();
     CustoVariavelProducaoModel custoVariavelProducao = new CustoVariavelProducaoModel();
+    CustoFixoProducaoModel custoFixoProducao = new CustoFixoProducaoModel();
+    DespGeralVarModel despGeralVar = new DespGeralVarModel();
+    DespGeralFixaModel despGeralFixa = new DespGeralFixaModel();
+    ImpProporcionalModel impProporcional = new ImpProporcionalModel();
+    DepreciacaoModel depreciacao = new DepreciacaoModel();
     int anos = 1;
     
     private Data(){};

@@ -25,25 +25,39 @@ public class CustoFixoProducao extends javax.swing.JPanel {
     /**
      * Creates new form CustoFixoProducao
      */
-    public CustoFixoProducao() {
+    CustoFixoProducao pt = this;
+    JFrame j;
+    
+    public void salvarAlteracoes(){
+            Data.getData().custoFixoProducao.atualizarVariaveis();
+            Data.getData().dadosModel.setCustoFixProd(Data.getData().custoFixoProducao.total);
+            }
+    
+    public CustoFixoProducao(JFrame j) {
         initComponents();
+        this.j = j;
+        final JFrame frame = new JFrame("Beginner");
         
-        final JFrame frame = new JFrame("JTable Demo");
-        
-        JTable table = new JTable(Data.getData().custoVariavelProducao);
+        JTable table = new JTable(Data.getData().custoFixoProducao);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
         
-        JLabel lblHeading = new JLabel("Custo FIxo de Produção");
+        JLabel lblHeading = new JLabel("Custo Fixo de Produção");
         lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
         JButton next = new JButton("Next");
         next.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Data.getData().custoVariavelProducao.atualizarVariaveis();
-                Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
-                //JFrame
+                salvarAlteracoes();
+                JFrame fAdvanced = new JFrame();
+                DespGeralVar cfp = new DespGeralVar(fAdvanced);
+                fAdvanced.setSize(800, 800);
+                fAdvanced.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                fAdvanced.add(cfp);
+                fAdvanced.setLocationRelativeTo(pt);
+                fAdvanced.setVisible(true);
+                j.setVisible(false);
             }
 
             @Override

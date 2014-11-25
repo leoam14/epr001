@@ -95,7 +95,7 @@ public class Iniciar extends javax.swing.JPanel {
         Data.getData().setAnos(Integer.parseInt(jTextField1.getText()));
         if(modo == 1){
         JFrame fAdvanced = new JFrame();
-        Empreendimento empreendimento = new Empreendimento();
+        Empreendimento empreendimento = new Empreendimento(fAdvanced);
         fAdvanced.setSize(800, 800);
         fAdvanced.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         fAdvanced.add(empreendimento);
@@ -103,7 +103,7 @@ public class Iniciar extends javax.swing.JPanel {
         fAdvanced.setVisible(true);
         }else{
         JFrame fAdvanced = new JFrame();
-        CustoVariavelProducao custoVP = new CustoVariavelProducao();
+        CustoVariavelProducao custoVP = new CustoVariavelProducao(fAdvanced);
         fAdvanced.setSize(800, 800);
         fAdvanced.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         fAdvanced.add(custoVP);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
@@ -18,6 +19,7 @@ import javax.swing.table.TableModel;
 public class CustoFixoProducaoModel extends AbstractTableModel{
     public int anos = 1;
     public int rows = 9;
+    
     
     public List<Double> elem1 = new ArrayList<Double>();
     public List<String> nomesColunas = new ArrayList<String>();
@@ -54,8 +56,6 @@ public class CustoFixoProducaoModel extends AbstractTableModel{
             elem3 = Arrays.<Double>asList((Double[])data[2][0]);
             elem4 = Arrays.<Double>asList((Double[])data[3][0]);
             elem5 = Arrays.<Double>asList((Double[])data[4][0]);
-            
-            
             
             calculaValores();
             updateData();

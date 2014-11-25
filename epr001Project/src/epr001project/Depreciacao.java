@@ -25,24 +25,39 @@ public class Depreciacao extends javax.swing.JPanel {
     /**
      * Creates new form Depreciacao
      */
-    public Depreciacao() {
+    Depreciacao pt = this;
+    JFrame j;
+    
+     public void salvarAlteracoes(){
+            Data.getData().depreciacao.atualizarVariaveis();
+            Data.getData().dadosModel.setDepreciacao(Data.getData().depreciacao.total);
+            }
+    
+    public Depreciacao(JFrame j) {
         initComponents();
-        final JFrame frame = new JFrame("JTable Demo");
+        this.j = j;
+        final JFrame frame = new JFrame("Beginner");
         
-        JTable table = new JTable(Data.getData().custoVariavelProducao);
+        JTable table = new JTable(Data.getData().depreciacao);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
         
-        JLabel lblHeading = new JLabel("Custo Variável de Produção");
+        JLabel lblHeading = new JLabel("Depreciação");
         lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
         JButton next = new JButton("Next");
         next.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Data.getData().custoVariavelProducao.atualizarVariaveis();
-                Data.getData().dadosModel.setCustoVarProd(Data.getData().custoVariavelProducao.total);
-                //JFrame
+                salvarAlteracoes();
+                JFrame fAdvanced = new JFrame();
+                Empreendimento cfp = new Empreendimento(fAdvanced);
+                fAdvanced.setSize(800, 800);
+                fAdvanced.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                fAdvanced.add(cfp);
+                fAdvanced.setLocationRelativeTo(pt);
+                fAdvanced.setVisible(true);
+                j.setVisible(false);
             }
 
             @Override

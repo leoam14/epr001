@@ -30,8 +30,10 @@ public class Empreendimento extends javax.swing.JPanel {
     /**
      * Creates new form Empreendimento
      */
-    public Empreendimento() {
+    JFrame j;
+    public Empreendimento(JFrame j) {
         initComponents();
+        this.j = j;
 //        DadosModel dataTable = new DadosModel();
 //        JTable tabela = new JTable(dataTable);
 //        JScrollPane scroll = new JScrollPane();
