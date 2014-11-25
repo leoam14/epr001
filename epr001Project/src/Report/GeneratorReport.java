@@ -37,6 +37,7 @@ public class GeneratorReport {
     }
 
     public void getReport() {
+        createFolder ();
         final BarChart barChart = new BarChart("Fluxo de Caixa", fluxoCaixa);
         barChart.pack();
         RefineryUtilities.centerFrameOnScreen(barChart);
@@ -79,14 +80,28 @@ public class GeneratorReport {
         pdf.openPDF();
     }
 
-    public static void main(String[] args) {
-        List<Double> l = new ArrayList<>();
-        l.add(50.00);
-        l.add(50.00);
-        l.add(10.00);
-        l.add(50.00);
-        l.add(50.00);
-        GeneratorReport rep = new GeneratorReport(0.2, 13.0, 12.0, l);
-        rep.getReport();
+    public void createFolder() {
+        File theDir = new File("C:\\Reports");
+
+        // if the directory does not exist, create it
+        if (!theDir.exists()) {
+            try {
+                theDir.mkdir();
+            } catch (SecurityException se) {
+                //handle it
+            }
+        }
     }
+
+//    public static void main(String[] args) {
+//        List<Double> l = new ArrayList<>();
+//        l.add(50.00);
+//        l.add(50.00);
+//        l.add(10.00);
+//        l.add(50.00);
+//        l.add(50.00);
+//        GeneratorReport rep = new GeneratorReport(0.2, 13.0, 12.0, l);
+//        rep.getReport();
+//
+//    }
 }
