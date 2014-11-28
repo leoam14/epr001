@@ -14,7 +14,7 @@ public class Epr001Project {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Main main = new Main();
         frame.setSize(main.getPreferredSize().width,main.getPreferredSize().height+15);
         frame.add(main);

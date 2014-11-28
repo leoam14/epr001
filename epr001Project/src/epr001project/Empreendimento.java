@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
@@ -33,6 +34,7 @@ public class Empreendimento extends javax.swing.JPanel {
         Data.getData().dadosModel.calculaValores();
         Data.getData().dadosModel.updateData();
         this.j = j;
+        JPanel pt = this;
 //        DadosModel dataTable = new DadosModel();
 //        JTable tabela = new JTable(dataTable);
 //        JScrollPane scroll = new JScrollPane();
@@ -66,22 +68,13 @@ public class Empreendimento extends javax.swing.JPanel {
                 if(table.getCellEditor()!=null)
                 table.getCellEditor().stopCellEditing();
                 Data.getData().dadosModel.atualizarVariaveis();
-                Double taxaSelic = new Double(0);
-                Double vpl = new Double(0);
-                Double tir = new Double(0);
-                
-                try {
-                    DadosReceitaFederal taxa = new DadosReceitaFederal();
-                    taxaSelic = taxa.getTaxaCelic();
-                    taxaSelic = Math.pow((1+taxaSelic/100),12)-1;
-                    taxaSelic*=100;
-                    vpl = Epr001Finance.VPL(Data.getData().dadosModel.getFluxoCaixa(), taxaSelic);
-                    tir = Epr001Finance.TIR(Data.getData().dadosModel.getFluxoCaixa(), taxaSelic);
-                    GeneratorReport rep = new GeneratorReport(vpl,tir,taxaSelic,Data.getData().dadosModel.getFluxoCaixa());
-                    rep.getReport();
-                } catch (IOException ex) {
-                    Logger.getLogger(Empreendimento.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                JFrame fAdvanced = new JFrame();
+                TaxaSelic cfp = new TaxaSelic(fAdvanced);
+                fAdvanced.setSize(cfp.getPreferredSize());
+                fAdvanced.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                fAdvanced.add(cfp);
+                fAdvanced.setLocationRelativeTo(pt);
+                fAdvanced.setVisible(true);
             }
 
             @Override
